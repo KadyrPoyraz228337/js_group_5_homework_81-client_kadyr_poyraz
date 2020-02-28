@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import {Button, Form, Input} from "reactstrap";
+import {Alert, Button, Col, Form, FormGroup, Input, Label} from "reactstrap";
 import {connect} from "react-redux";
 
 import {shortUrl} from "./store/actions/urlShort";
@@ -29,14 +29,21 @@ const App = props => {
                     onSubmit={onSubmit}
                 >
                     <h1>Shorten your link!</h1>
-                    <Input
-                        type='text'
-                        name='originalUrl'
-                        className='w-50 my-4'
-                        placeholder='Enter URL here'
-                        onChange={inputChangeHandler}
-                        required
-                    />
+                    <FormGroup row>
+                        <Label for="originalUrl" sm={4}>Original url</Label>
+                        <Col sm={8}>
+                            <Input
+                                type='text'
+                                name='originalUrl'
+                                id='originalUrl'
+                                placeholder='Enter URL here'
+                                onChange={inputChangeHandler}
+                            />
+                        </Col>
+                    </FormGroup>
+                    {props.state.error && <Alert color="danger">
+                        {props.state.error}
+                    </Alert>}
                     <Button>shorten</Button>
                     {props.state.shortUrl && <div className='d-flex flex-column align-items-center'>
                         <b className='my-3'>
